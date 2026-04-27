@@ -7,44 +7,23 @@ cantidad de espacios en la mesa (o en otras palabras, que dejan la menor cantida
 
 
 def max_grupos_bodegon(P, W):
-    solucion = [0, []]
-    b_c(P, W, 0, [0, []], solucion)
-    return solucion[1]
+    solucion_parcial = []
+    solucion_optima = []
+    return max_grupos_bodegon_rec(P, W, 0, solucion_parcial, solucion_optima)
 
 
-def b_c(P, W, indice, solucion_parcial, solucion_actual):
-    suma_parcial, elementos_parcial = solucion_parcial
-    suma_actual = solucion_actual[0]
-
-    if suma_parcial > W:
-        return None
-
-    if suma_parcial <= W and suma_parcial > suma_actual:
-        solucion_actual[0] = suma_parcial
-        solucion_actual[1] = elementos_parcial[:]
-
-    if indice >= len(P):
-        return None
-
+def max_grupos_bodegon_rec(P, W, indice, solucion_parcial, solucion_optima):
+    if indice == len(P):
+        if len(solucion_parcial) > len(solucion_optima):
+            return solucion_parcial[:]
+        return solucion_optima
+    if len(solucion_parcial) + (len(P) - indice) <= len(solucion_optima):
+        return solucion_optima
     actual = P[indice]
-
-    suma_parcial += actual
-    elementos_parcial.append(actual)
-    b_c(
-        P,
-        W,
-        indice + 1,
-        [suma_parcial, elementos_parcial],
-        solucion_actual,
-    )
-
-    suma_parcial -= actual
-    elementos_parcial.pop()
-
-    b_c(
-        P,
-        W,
-        indice + 1,
-        [suma_parcial, elementos_parcial],
-        solucion_actual,
-    )
+    solucion_parcial.append(actual)
+    if sum(solucion_parcial) <= W:
+        solucion_optima = max_grupos_bodegon_rec(
+            P, W, indice + 1, solucion_parcial, solucion_optima
+        )
+    solucion_parcial.pop()
+    return max_grupos_bodegon_rec(P, W, indice + 1, solucion_parcial, solucion_optima)
