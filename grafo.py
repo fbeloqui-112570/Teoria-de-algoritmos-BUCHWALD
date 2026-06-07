@@ -1,5 +1,6 @@
 import random
 
+
 class Grafo:
     def __init__(self, es_dirigido=False, vertices_init=None):
         if vertices_init is None:
@@ -66,8 +67,6 @@ class Grafo:
         tipo = "Dirigido" if self.es_dirigido else "No dirigido"
         res = [f"Grafo {tipo} con {len(self.adyacencia)} vértices:"]
         for v in self.adyacencia:
-            ady = ', '.join(f"{w} (peso: {p})" for w, p in self.adyacencia[v].items())
+            ady = ", ".join(f"{w} (peso: {p})" for w, p in self.adyacencia[v].items())
             res.append(f"{v} -> {ady}")
         return "\n".join(res)
-
-
