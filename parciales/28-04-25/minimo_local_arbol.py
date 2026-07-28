@@ -12,3 +12,7 @@ def minimo_local_arbol(arbol):
         return minimo_local_arbol(arbol.izq)
     else:
         return minimo_local_arbol(arbol.der)
+
+
+# Complejidad: T(n) = T(n/2) + n^0 -> A = 1, B = 2, C = 0
+# log en base 2 de 1 = 0 = C -> n^0 * log n = O(log n)

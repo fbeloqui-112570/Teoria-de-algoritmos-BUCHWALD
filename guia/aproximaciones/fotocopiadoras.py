@@ -1,0 +1,18 @@
+"""(★★★) Un centro de fotocopiado tiene un conjunto de máquinas para procesar diferentes trabajos.
+Las mismas las compró en dos momentos diferentes. Teniendo mm fotocopiadoras de la primera compra y kk fotocopiadoras más modernas
+de la segunda. Como la tecnología mejoró las más nuevas trabajan el doble de rápido que las viejas.
+Cada día recibe un conjunto de pedidos con diferentes longitudes. Desea asignar las tareas a las máquinas de tal forma de
+terminar lo antes posible la jornada de trabajo.
+
+Proponer un algoritmo de aproximación de tal forma que la diferencia con el óptimo sea como mucho 3 veces mayor."""
+
+
+def fotocopiadoras(trabajos: list[int], m: int, k: int):
+    resultado = []
+    trabajos_ordenados = sorted(trabajos, reverse=True)
+    for i, t in enumerate(trabajos_ordenados):
+        if i < k:
+            resultado.append((t, k))
+        else:
+            resultado.append((t, m))
+    return resultado

@@ -16,8 +16,7 @@ def verificar_maximo(numero, arr):
         return True
     maximo = arr[0]
     for elemento in arr:
-        if elemento > maximo:
-            maximo = elemento
+        maximo = max(maximo, elemento)
     return numero == maximo
 
 
