@@ -15,23 +15,28 @@ def es_dominating_set(grafo: Grafo, solucion_parcial):
         visitados.add(vertice)
         for w in grafo.adyacentes(vertice):
             visitados.add(w)
-    if len(visitados) == len(grafo.obtener_vertices()):
-        return True
-    return False
+    return len(visitados) == len(grafo.obtener_vertices())
 
 
-def dominating_set_min_rec(grafo: Grafo, vertices, indice, solucion_parcial, solucion):
-    if len(solucion_parcial) >= len(solucion[0]):
-        return
+def dominating_set_min_rec(
+    grafo: Grafo, vertices, indice, solucion_parcial, solucion_optima
+):
+    if len(solucion_parcial) >= len(solucion_optima):
+        return solucion_optima
     if indice == len(vertices):
         if es_dominating_set(grafo, solucion_parcial):
-            solucion[0] = solucion_parcial[:]
-        return
+            return solucion_parcial[:]
+        return solucion_optima
     actual = vertices[indice]
     solucion_parcial.append(actual)
-    dominating_set_min_rec(grafo, vertices, indice + 1, solucion_parcial, solucion)
+    solucion_optima = dominating_set_min_rec(
+        grafo, vertices, indice + 1, solucion_parcial, solucion_optima
+    )
     solucion_parcial.pop()
-    dominating_set_min_rec(grafo, vertices, indice + 1, solucion_parcial, solucion)
+    solucion_optima = dominating_set_min_rec(
+        grafo, vertices, indice + 1, solucion_parcial, solucion_optima
+    )
+    return solucion_optima
 
 
 def main():
