@@ -14,10 +14,9 @@ def dfs(grafo, indice, vertices, colores, n):
     actual = vertices[indice]
     for color in range(n):
         colores[actual] = color
-        if es_valido(grafo, actual, colores) and dfs(
-            grafo, indice + 1, vertices, colores, n
-        ):
-            return True
+        if es_valido(grafo, actual, colores):  # noqa: SIM102
+            if dfs(grafo, indice + 1, vertices, colores, n):
+                return True
     del colores[actual]
     return False
 
