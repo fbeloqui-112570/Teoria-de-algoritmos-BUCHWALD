@@ -35,7 +35,7 @@ Donde cada vertice y cada uno de sus adyacentes que forman parte de D representa
 
 ejemplo:
 
-Screenshot_20261025_173717.png
+![](image_2.png)
 
 ## Existe Dominating Set de como mucho K vertices <-> Existe Set Cover de como mucho K conjuntos
 
