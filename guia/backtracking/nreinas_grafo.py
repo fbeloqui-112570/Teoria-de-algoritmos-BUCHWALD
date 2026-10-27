@@ -4,25 +4,23 @@ from grafo import Grafo
 def nreinas(n):
     grafo = crear_grafo(n)
     vertices = grafo.obtener_vertices()
-    lista = []
-    resultado = n_reinas_rec(grafo, vertices, 0, lista, n)
+    resultado = n_reinas_rec(grafo, vertices, 0, [], [], n)
     if resultado is not None:
         return resultado
     return []
 
 
-def n_reinas_rec(grafo: Grafo, vertices, indice, lista, n):
-    if len(lista) == n:
-        return lista[:]
+def n_reinas_rec(grafo: Grafo, vertices, indice, solucion_parcial, solucion_optima, n):
+    if len(solucion_parcial) == n:
+        return solucion_parcial[:]
     if indice == len(vertices):
-        return None
+        return solucion_optima
     actual = vertices[indice]
-    if es_valido(grafo, actual, lista):
-        lista.append(actual)
-        if n_reinas_rec(grafo, vertices, indice + 1, lista, n) is not None:
-            return lista
-        lista.pop()
-    return n_reinas_rec(grafo, vertices, indice + 1, lista, n)
+    if es_valido(grafo, actual, solucion_parcial):
+        solucion_parcial.append(actual)
+        solucion_optima = n_reinas_rec(grafo, vertices, indice + 1, solucion_parcial, solucion_optima, n)
+        solucion_parcial.pop()
+    return n_reinas_rec(grafo, vertices, indice + 1, solucion_parcial, solucion_optima, n)
 
 
 def es_valido(grafo: Grafo, actual, lista):
